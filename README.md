@@ -40,6 +40,18 @@ or Vite:
 8. Binding attributes
 9. Binding Classes
 10. Binding Styles
+11. Conditional Rendering
+    1. v-if
+    2. v-else
+    3. v-else-if
+    4. v-show
+12. List rendering
+
+    1. v-for
+
+13. Lists and Keys
+14. Conditional List Rendering
+15. Method
 
 # Note
 
