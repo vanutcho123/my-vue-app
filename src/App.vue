@@ -1,30 +1,55 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-</script>
+import { ref } from "vue";
+//
+const name = ref("Nguyen Van text");
+const htmlText = ref("<div>Nguyen Van html</div>");
+const hack = ref(
+  `<a href="#" onclick="alert('Nguyen Van Hai')">Click de test</a`
+);
 
+const headingId = ref("headingId");
+const headingClass1 = ref("headingClass1");
+const headingClass2 = ref("headingClass2");
+const isAccep = ref(false);
+const hightlighColor = ref("orange");
+</script>
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
-  <HelloWorld msg="Vite + Vue" />
+  <!-- !Binding Text -->
+  <!-- Interpolation  -->
+  <div>Nguyễn Văn Hải {{ name }}</div>
+  <!--V-text  -->
+  <div v-text="name"></div>
+  <!-- !Binding Html -->
+  <!-- V-html -->
+  <div v-html="htmlText"></div>
+  <div v-html="hack"></div>
+  <button @click="handleClick">Click me</button>
+  <!-- !Binding attributes -->
+  <div v-bind:class="headingClass1">Đây là v-bind:class</div>
+  <div v-bind:id="headingId">Đây là v-bind:id</div>
+  <div v-bind:class="[headingClass1, headingClass2]">Đây là 2 class</div>
+  <!-- !Binding Classes -->
+  <a href="#" class="underline">Underline</a>
+  <h2 v-bind:class="isAccep ? 'red' : 'blue'">Đây là Binding Classes</h2>
+  <!-- !Binding Styles -->
+  <h3
+    v-bind:style="{
+      color: hightlighColor,
+    }"
+  >
+    Đây là binding Style
+  </h3>
 </template>
 
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+/* !Binding Classes */
+.underline {
+  text-decoration: none;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+.red {
+  color: red;
 }
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+.blue {
+  color: blue;
 }
 </style>
