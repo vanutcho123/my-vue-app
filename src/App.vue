@@ -1,7 +1,9 @@
 <script setup>
-import { ref, watchEffect } from "vue";
+import { computed, ref, watch } from "vue";
+import HeaderComp from "./components/Header.vue";
 //
-const name = ref("Nguyen Van text");
+
+const name = ref("");
 const htmlText = ref("<div>Nguyen Van html</div>");
 const hack = ref(
   `<a href="#" onclick="alert('Nguyen Van Hai')">Click de test</a`
@@ -72,12 +74,33 @@ const formValues = ref({
   yearOfEx: "",
 });
 
-const submitForm = (event) => {
-  event.preventDefault();
+const submitForm = () => {
   console.log(formValues);
 };
+
+const items = ref([
+  {
+    id: 1,
+    title: "TV",
+    price: 100,
+  },
+  {
+    id: 2,
+    title: "Watch",
+    price: 200,
+  },
+]);
+
+const totalPrice = computed(() => {
+  return items.value.reduce((total, item) => total + item.price, 0);
+});
+
+watch(name, (newUsername, oldUsername) => {
+  console.log(`Username changed from ${oldUsername} to ${newUsername}`);
+});
 </script>
 <template>
+  <HeaderComp />
   <!-- !Binding Text -->
   <!-- Interpolation  -->
   <div>Nguyễn Văn Hải {{ name }}</div>
@@ -170,11 +193,11 @@ const submitForm = (event) => {
 
     </pre>
   </div>
-  <form @submit="submitForm">
+  <form @submit.stop.prevent="submitForm">
     <!-- !FORM INPUT -->
     <div>
       <label for="name">Name</label>
-      <input type="text" name="name" id="name" v-model="formValues.name" />
+      <input type="text" name="name" id="name" v-model.lazy="formValues.name" />
     </div>
     <!-- !FORM AREA -->
     <div>
@@ -254,6 +277,15 @@ const submitForm = (event) => {
     </div>
     <button type="submit">Lưu</button>
   </form>
+  <div>
+    <h2>Tổng tiền này</h2>
+    <span>{{ totalPrice }}</span>
+  </div>
+
+  <div>
+    <input v-model="name" placeholder="Enter your username" />
+    <p>Current Username: {{ name }}</p>
+  </div>
 </template>
 
 <style scoped>

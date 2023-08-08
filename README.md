@@ -54,6 +54,7 @@ or Vite:
 15. Method
 16. EventHandling
 17. Form Handling
+
     1. Capture user input
     2. Inputs
     3. Textarea
@@ -65,6 +66,51 @@ or Vite:
     9. Submit form data
        <!-- Hiển thị dữ liệu để xem khi nhập form -->
        {{ JSON.stringify(formValues.country, null, 2) }}
+
+18. Modifiers
+    Các Modifier cho v-on:
+    .stop: Ngăn chặn sự lan truyền của sự kiện. Tương đương với event.stopPropagation().
+    .prevent: Ngăn chặn hành vi mặc định của sự kiện. Tương đương với event.preventDefault().
+    .capture: Lắng nghe sự kiện trong giai đoạn capture (từ gốc tới mục tiêu).
+    .self: Chỉ kích hoạt xử lý sự kiện nếu mục tiêu của sự kiện là chính phần tử đó (không phải từ con cháu).
+    .once: Bộ lắng nghe sự kiện sẽ tự động được loại bỏ sau lần kích hoạt đầu tiên.
+    .passive: Đánh dấu bộ lắng nghe sự kiện là passive, giúp cải thiện hiệu suất cuộn trên các thiết bị cảm ứng.
+    Ví dụ:
+
+<!-- Ngăn chặn lan truyền và ngăn chặn hành vi mặc định -->
+
+<button @click.stop.prevent="doSomething">Nhấn vào tôi</button>
+
+<!-- Lắng nghe sự kiện trong giai đoạn capture -->
+<div @click.capture="doSomething">Capture Phase</div>
+
+<!-- Chỉ kích hoạt xử lý nếu mục tiêu của sự kiện là phần tử đó -->
+<div @click.self="doSomething">Nhấn vào tôi</div>
+
+<!-- Bộ lắng nghe sự kiện sẽ bị loại bỏ sau lần nhấp đầu tiên -->
+
+<button @click.once="doSomething">Nhấn một lần</button>
+
+<!-- Đánh dấu bộ lắng nghe sự kiện là passive để cải thiện hiệu suất cuộn -->
+<div @touchstart.passive="handleTouchStart">Chạm vào tôi</div>
+
+Các Modifier cho v-model:
+.lazy: Cập nhật giá trị liên kết chỉ khi sự kiện change được kích hoạt (thường sau khi input mất focus).
+.number: Chuyển đổi giá trị nhập vào thành số trước khi liên kết.
+.trim: Loại bỏ khoảng trắng đầu và cuối chuỗi nhập vào trước khi liên kết.
+Ví dụ:
+
+<!-- Cập nhật giá trị chỉ khi input mất focus -->
+<input v-model.lazy="message">
+
+<!-- Chuyển đổi giá trị nhập vào thành số -->
+<input v-model.number="age" type="number">
+
+<!-- Loại bỏ khoảng trắng đầu và cuối chuỗi -->
+<input v-model.trim="username">
+Những ví dụ trên chỉ là một số ví dụ về cách sử dụng các modifier trong các hướng dẫn của Vue.js để tùy chỉnh cách chúng hoạt động. Các modifier giúp bạn điều chỉnh tương tác trong các thành phần của bạn, làm cho mã của bạn trở nên chính xác và thể hiện. Hãy nhớ rằng các modifier chỉ tồn tại cho một số chỉ thị cụ thể và sự có sẵn của chúng có thể thay đổi tùy theo chỉ thị bạn đang sử dụng.
+
+19. Computed Properties
 
 # Note
 
