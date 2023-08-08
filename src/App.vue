@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { ref, watchEffect } from "vue";
 //
 const name = ref("Nguyen Van text");
 const htmlText = ref("<div>Nguyen Van html</div>");
@@ -12,8 +12,6 @@ const headingClass1 = ref("headingClass1");
 const headingClass2 = ref("headingClass2");
 const isAccep = ref(false);
 const hightlighColor = ref("orange");
-
-const num = ref(1);
 
 const showElement = ref(false);
 
@@ -47,6 +45,36 @@ const add = (a, b, c) => {
 const baseMultiplier = ref(5);
 const multipy = (a) => {
   return baseMultiplier.value * a;
+};
+
+const handleName = ref("NguyenVanHai");
+const hanldeChange = () => {
+  alert("Hai");
+};
+
+const num = ref(0);
+const increment = (a, event) => {
+  num.value = num.value + a;
+  console.log(event);
+};
+const decrement = (a) => {
+  num.value = num.value - a;
+};
+
+//
+const formValues = ref({
+  name: "",
+  profileSumary: "",
+  country: "",
+  jobLocation: [],
+  remoteWork: "yes",
+  skillSet: [],
+  yearOfEx: "",
+});
+
+const submitForm = (event) => {
+  event.preventDefault();
+  console.log(formValues);
 };
 </script>
 <template>
@@ -116,6 +144,116 @@ const multipy = (a) => {
     <h2>Add method - {{ add(1, 2, 6) }}</h2>
     <h2>hehe - {{ multipy(3) }}</h2>
   </div>
+
+  <!-- !Event Handling -->
+  <div>
+    <h2>{{ handleName }}</h2>
+    <button @click="hanldeChange">Click để đổi tên</button>
+  </div>
+
+  <div style="display: flex; margin-top: 50px">
+    <button @click="increment(5, $event)">+</button>
+    <h2>{{ num }}</h2>
+    <button @click="decrement(5)">-</button>
+  </div>
+
+  <!-- !Form handling -->
+  <div>
+    <pre>
+      {{ JSON.stringify(formValues.name, null, 2) }}
+      {{ JSON.stringify(formValues.profileSumary, null, 2) }}
+      {{ JSON.stringify(formValues.country, null, 2) }}
+      {{ JSON.stringify(formValues.jobLocation, null, 2) }}
+      {{ JSON.stringify(formValues.remoteWork, null, 2) }}
+      {{ JSON.stringify(formValues.skillSet, null, 2) }}
+
+
+    </pre>
+  </div>
+  <form @submit="submitForm">
+    <!-- !FORM INPUT -->
+    <div>
+      <label for="name">Name</label>
+      <input type="text" name="name" id="name" v-model="formValues.name" />
+    </div>
+    <!-- !FORM AREA -->
+    <div>
+      <label for="profileSumary">ProfileSumary</label>
+      <textarea
+        name="profileSumaryprofileSumary"
+        id="profileSumary"
+        cols="30"
+        rows="10"
+        v-model="formValues.profileSumary"
+      ></textarea>
+    </div>
+    <!--!FORM SELECT  -->
+    <div>
+      <label for="country">Country</label>
+      <select name="country" id="country" v-model="formValues.country">
+        <option value="">Select country</option>
+        <option value="vietnam">Việt Nam</option>
+        <option value="nhatban">Nhật Bản</option>
+        <option value="hanquoc">Hàn Quốc</option>
+      </select>
+    </div>
+    <!-- !FORM SELECT MULTIPLE -->
+    <div>
+      <label for="job-location">Job Location</label>
+      <select
+        name="job-location"
+        id="job-location"
+        multiple
+        v-model="formValues.jobLocation"
+      >
+        <option value="">Select country</option>
+        <option value="vietnam">Việt Nam</option>
+        <option value="nhatban">Nhật Bản</option>
+        <option value="hanquoc">Hàn Quốc</option>
+      </select>
+    </div>
+    <!-- !FORM CHECKBOX -->
+    <div>
+      <input
+        type="checkbox"
+        name="remoteWork"
+        id="remoteWork"
+        v-model="formValues.remoteWork"
+        true-value="yes"
+        false-value="no"
+      />
+      <label for="remoteWork">Open to remote work</label>
+    </div>
+    <!-- !FORM  MULTI CHECKBOX -->
+    <div>
+      <label> SkillSet</label>
+      <input
+        type="checkbox"
+        name="html"
+        id="html"
+        value="html"
+        v-model="formValues.skillSet"
+      />
+      <label for="html">HTML</label>
+      <input
+        type="checkbox"
+        name="css"
+        id="css"
+        value="css"
+        v-model="formValues.skillSet"
+      />
+      <label for="css">CSS</label>
+      <input
+        type="checkbox"
+        name="js"
+        id="js"
+        value="js"
+        v-model="formValues.skillSet"
+      />
+      <label for="js">JS</label>
+    </div>
+    <button type="submit">Lưu</button>
+  </form>
 </template>
 
 <style scoped>

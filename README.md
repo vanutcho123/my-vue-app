@@ -52,6 +52,19 @@ or Vite:
 13. Lists and Keys
 14. Conditional List Rendering
 15. Method
+16. EventHandling
+17. Form Handling
+    1. Capture user input
+    2. Inputs
+    3. Textarea
+    4. Single select dropdown control
+    5. Multi select control
+    6. Checkout
+    7. Checkbox group
+    8. Radio
+    9. Submit form data
+       <!-- Hiển thị dữ liệu để xem khi nhập form -->
+       {{ JSON.stringify(formValues.country, null, 2) }}
 
 # Note
 
